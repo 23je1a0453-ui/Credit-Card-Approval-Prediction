@@ -1,54 +1,82 @@
-# Descriptive Analysis
+# Removing Duplicate Records
 
 ## Overview
 
-Descriptive Analysis is performed to summarize and understand the statistical characteristics of the dataset. In the **Credit Card Approval Prediction** project, this analysis provides insights into numerical features such as applicant income, employment duration, family size, and age. It helps identify the distribution, central tendency, variability, and range of the data before preprocessing and model training.
+Removing duplicate records is an essential data preprocessing step in the **Credit Card Approval Prediction** project. Duplicate entries may occur due to repeated data collection, data merging, or system errors. These duplicate records can negatively impact the accuracy and reliability of the machine learning model.
+
+Each applicant should have a unique **Applicant ID**. Therefore, duplicate records are identified and removed to ensure data consistency and improve model performance.
 
 ---
 
-## Generate Descriptive Statistics
+## Check for Duplicate Records
 
-Use the `describe()` function to generate summary statistics for all numerical features.
+Before removing duplicates, check how many duplicate rows exist in the dataset.
 
 ```python
-data.describe()
+data.duplicated().sum()
 ```
 
 **Purpose:**
-- Displays the count of non-null values.
-- Calculates the mean and standard deviation.
-- Shows the minimum and maximum values.
-- Displays percentile values (25%, 50%, and 75%).
-- Provides a statistical summary of the dataset.
+- Counts the total number of duplicate records.
+- Helps determine whether data cleaning is required.
 
 ---
 
-## Example Output
+## Remove Duplicate Records
 
-| Statistic | Description |
-|-----------|-------------|
-| Count | Number of non-null values |
-| Mean | Average value of the feature |
-| Std | Standard deviation (data spread) |
-| Min | Minimum value |
-| 25% | First quartile |
-| 50% | Median value |
-| 75% | Third quartile |
-| Max | Maximum value |
+Remove all duplicate rows from the dataset.
+
+```python
+data = data.drop_duplicates()
+```
+
+**Purpose:**
+- Removes duplicate records.
+- Keeps only unique rows in the dataset.
+- Improves data quality.
 
 ---
 
-## Benefits of Descriptive Analysis
+## Remove Duplicates Based on Applicant ID
 
-- Provides a statistical overview of the dataset.
-- Helps understand the distribution of numerical features.
-- Identifies potential outliers and anomalies.
-- Detects inconsistencies in the data.
-- Supports feature selection and preprocessing.
-- Improves the quality of data before machine learning model training.
+If the dataset contains an **Applicant_ID** column, remove duplicates while keeping the first occurrence.
+
+```python
+data = data.drop_duplicates(subset="Applicant_ID", keep="first")
+```
+
+**Purpose:**
+- Removes duplicate applicant records.
+- Retains only the first occurrence of each Applicant ID.
+- Ensures every applicant appears only once in the dataset.
+
+---
+
+## Verify the Updated Dataset
+
+Check the dataset shape after removing duplicates.
+
+```python
+data.shape
+```
+
+**Purpose:**
+- Displays the number of rows and columns after cleaning.
+- Confirms that duplicate records have been removed successfully.
+
+---
+
+## Benefits of Removing Duplicate Records
+
+- Improves data quality and consistency.
+- Prevents bias during model training.
+- Ensures each applicant has a unique record.
+- Reduces redundant data.
+- Enhances machine learning model accuracy.
+- Produces more reliable prediction results.
 
 ---
 
 ## Summary
 
-Descriptive Analysis is an essential step in Exploratory Data Analysis (EDA). Using the `describe()` function in Pandas provides a comprehensive statistical summary of numerical features, helping developers understand the dataset, identify irregularities, and prepare high-quality data for building an accurate Credit Card Approval Prediction model.
+Removing duplicate records is a crucial preprocessing step in the Credit Card Approval Prediction project. Using the `drop_duplicates()` function ensures that each applicant is represented only once in the dataset, resulting in cleaner, more reliable data for preprocessing, feature engineering, model training, and evaluation.
