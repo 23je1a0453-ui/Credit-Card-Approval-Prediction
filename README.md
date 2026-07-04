@@ -1,69 +1,54 @@
-# Multivariate Analysis
+# Descriptive Analysis
 
 ## Overview
 
-Multivariate Analysis is performed to study the relationship between multiple features in the dataset simultaneously. In the **Credit Card Approval Prediction** project, it helps identify how applicant attributes such as income, employment duration, family size, age, and other financial factors are related to each other and how they influence the credit card approval decision.
-
-This analysis is useful for identifying feature dependencies, detecting multicollinearity, and selecting the most relevant features for model training.
+Descriptive Analysis is performed to summarize and understand the statistical characteristics of the dataset. In the **Credit Card Approval Prediction** project, this analysis provides insights into numerical features such as applicant income, employment duration, family size, and age. It helps identify the distribution, central tendency, variability, and range of the data before preprocessing and model training.
 
 ---
 
-## Calculate Correlation Matrix
+## Generate Descriptive Statistics
 
-Use the `corr()` function to calculate the correlation between numerical features.
+Use the `describe()` function to generate summary statistics for all numerical features.
 
 ```python
-correlation_matrix = app.corr(numeric_only=True)
-
-print(correlation_matrix)
+data.describe()
 ```
 
 **Purpose:**
-- Calculates the correlation coefficient between numerical variables.
-- Identifies positive and negative relationships.
-- Helps select important features for model development.
+- Displays the count of non-null values.
+- Calculates the mean and standard deviation.
+- Shows the minimum and maximum values.
+- Displays percentile values (25%, 50%, and 75%).
+- Provides a statistical summary of the dataset.
 
 ---
 
-## Correlation Heatmap
+## Example Output
 
-Visualize the correlation matrix using a heatmap.
-
-```python
-import matplotlib.pyplot as plt
-import seaborn as sns
-
-plt.figure(figsize=(12, 8))
-
-sns.heatmap(
-    correlation_matrix,
-    annot=True,
-    cmap="coolwarm",
-    fmt=".2f"
-)
-
-plt.title("Correlation Heatmap")
-plt.show()
-```
-
-**Purpose:**
-- Displays the correlation between features.
-- Positive correlations appear in warmer colors.
-- Negative correlations appear in cooler colors.
-- Helps identify highly correlated variables.
+| Statistic | Description |
+|-----------|-------------|
+| Count | Number of non-null values |
+| Mean | Average value of the feature |
+| Std | Standard deviation (data spread) |
+| Min | Minimum value |
+| 25% | First quartile |
+| 50% | Median value |
+| 75% | Third quartile |
+| Max | Maximum value |
 
 ---
 
-## Benefits of Multivariate Analysis
+## Benefits of Descriptive Analysis
 
-- Identifies relationships between multiple features.
-- Detects feature dependencies and multicollinearity.
-- Supports feature selection.
-- Improves preprocessing and model optimization.
-- Enhances machine learning model performance.
+- Provides a statistical overview of the dataset.
+- Helps understand the distribution of numerical features.
+- Identifies potential outliers and anomalies.
+- Detects inconsistencies in the data.
+- Supports feature selection and preprocessing.
+- Improves the quality of data before machine learning model training.
 
 ---
 
 ## Summary
 
-Multivariate analysis is an important Exploratory Data Analysis (EDA) technique used to understand relationships among multiple variables. By using correlation analysis and heatmaps, it becomes easier to identify significant features, reduce redundancy, and improve the accuracy and efficiency of the Credit Card Approval Prediction model.
+Descriptive Analysis is an essential step in Exploratory Data Analysis (EDA). Using the `describe()` function in Pandas provides a comprehensive statistical summary of numerical features, helping developers understand the dataset, identify irregularities, and prepare high-quality data for building an accurate Credit Card Approval Prediction model.
