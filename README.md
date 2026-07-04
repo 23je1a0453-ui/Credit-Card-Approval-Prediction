@@ -1,68 +1,88 @@
-# Importing Required Libraries
+# Reading the Dataset
 
 ## Overview
 
-Importing the required Python libraries is the first step in developing the **Credit Card Approval Prediction** project. These libraries provide built-in functions for data loading, preprocessing, visualization, machine learning model development, and performance evaluation. Using these libraries ensures an efficient and organized workflow throughout the project.
+Reading the dataset is one of the first steps in the **Credit Card Approval Prediction** project. It helps understand the structure, features, and records available for machine learning. The dataset is loaded using the **Pandas** library with the `read_csv()` function, which reads CSV files and stores the data in a **DataFrame** for further analysis and preprocessing.
+
+After loading the dataset, functions such as `head()`, `shape`, and `info()` are used to inspect the data, verify its structure, identify missing values, and understand the data types of each feature.
 
 ---
 
-## Import Required Libraries
+## Import Pandas
 
 ```python
-import numpy as np
 import pandas as pd
-import matplotlib.pyplot as plt
-import seaborn as sns
-
-from sklearn.model_selection import train_test_split
-from sklearn.preprocessing import LabelEncoder, StandardScaler
-from sklearn.linear_model import LogisticRegression
-from sklearn.tree import DecisionTreeClassifier
-from sklearn.ensemble import RandomForestClassifier
-from sklearn.metrics import accuracy_score, classification_report, confusion_matrix
 ```
 
 ---
 
-## Library Description
+## Read the Dataset
 
-### NumPy
-Provides support for numerical computing, multidimensional arrays, and mathematical operations.
+Use the `read_csv()` function to load the CSV file.
 
-### Pandas
-Used to load, clean, preprocess, and analyze datasets using DataFrames.
+```python
+data = pd.read_csv("dataset/creditcard.csv")
+```
 
-### Matplotlib
-Creates charts, graphs, and visualizations for data analysis.
-
-### Seaborn
-Provides high-level statistical visualizations such as heatmaps, count plots, and pair plots.
-
-### Scikit-learn
-Offers machine learning algorithms and tools for:
-
-- Data preprocessing
-- Feature scaling
-- Label encoding
-- Train-test splitting
-- Model training
-- Model evaluation
+**Purpose:**
+- Reads the dataset from the specified file path.
+- Loads the data into a Pandas DataFrame.
+- Prepares the dataset for analysis and preprocessing.
 
 ---
 
-## Purpose
+## Display the First Five Rows
 
-The imported libraries are used to:
+Use the `head()` method to view a sample of the dataset.
 
-- Load and analyze the dataset.
-- Clean and preprocess the data.
-- Visualize feature distributions and relationships.
-- Train multiple machine learning models.
-- Evaluate model performance using classification metrics.
-- Compare models and select the best-performing one for deployment.
+```python
+data.head()
+```
+
+**Purpose:**
+- Displays the first **five rows** of the dataset by default.
+- Provides a quick overview of the available features and sample records.
+
+---
+
+## Check Dataset Dimensions
+
+```python
+data.shape
+```
+
+**Purpose:**
+- Returns the number of rows and columns in the dataset.
+- Helps understand the dataset size.
+
+---
+
+## Display Dataset Information
+
+```python
+data.info()
+```
+
+**Purpose:**
+- Displays column names.
+- Shows data types of each feature.
+- Identifies missing (null) values.
+- Provides memory usage information.
+
+---
+
+## Generate Statistical Summary
+
+```python
+data.describe()
+```
+
+**Purpose:**
+- Generates descriptive statistics for numerical features.
+- Displays count, mean, standard deviation, minimum, maximum, and percentile values.
 
 ---
 
 ## Summary
 
-Importing the required libraries establishes the foundation for the Credit Card Approval Prediction project. These libraries support every stage of the machine learning pipeline, from data preprocessing and visualization to model training, evaluation, and deployment.
+Reading the dataset is a crucial step in the machine learning workflow. Using `pd.read_csv()`, the dataset is loaded into a Pandas DataFrame for analysis. Functions such as `head()`, `shape`, `info()`, and `describe()` provide valuable insights into the dataset, helping prepare it for preprocessing, visualization, model training, and evaluation.
