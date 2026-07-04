@@ -1,82 +1,94 @@
-# Label Encoding
+# Logistic Regression Model
 
 ## Overview
 
-Machine learning algorithms require numerical input data for training and prediction. Since the dataset contains categorical features such as gender, education level, income type, housing type, and family status, these values must be converted into numerical form.
+Logistic Regression is a supervised machine learning algorithm used for binary classification problems. In the **Credit Card Approval Prediction** project, it is used to predict whether a credit card application should be **Approved** or **Not Approved** based on the applicant's personal and financial information.
 
-In this project, the **LabelEncoder** class from the **Scikit-learn** preprocessing module is used to transform categorical variables into integer labels. The `fit_transform()` method identifies each unique category and assigns it a unique numerical value, making the dataset suitable for machine learning models.
+The `LogisticRegression()` class from the **Scikit-learn** library is initialized and trained using the `fit()` method. Once trained, the model predicts the approval status of unseen test data using the `predict()` method.
 
 ---
 
-## Import LabelEncoder
+## Import Required Libraries
 
 ```python
-from sklearn.preprocessing import LabelEncoder
+from sklearn.linear_model import LogisticRegression
+from sklearn.metrics import confusion_matrix, classification_report
 ```
 
 ---
 
-## Create a LabelEncoder Object
+## Initialize the Model
 
 ```python
-label_encoder = LabelEncoder()
-```
-
-**Purpose:**
-- Creates an instance of the `LabelEncoder` class.
-- Prepares the encoder to transform categorical features.
-
----
-
-## Apply Label Encoding
-
-Convert categorical columns into numerical values.
-
-```python
-data["CODE_GENDER"] = label_encoder.fit_transform(data["CODE_GENDER"])
-data["NAME_INCOME_TYPE"] = label_encoder.fit_transform(data["NAME_INCOME_TYPE"])
-data["NAME_EDUCATION_TYPE"] = label_encoder.fit_transform(data["NAME_EDUCATION_TYPE"])
-data["NAME_FAMILY_STATUS"] = label_encoder.fit_transform(data["NAME_FAMILY_STATUS"])
-data["NAME_HOUSING_TYPE"] = label_encoder.fit_transform(data["NAME_HOUSING_TYPE"])
+model = LogisticRegression()
 ```
 
 **Purpose:**
-- Converts text categories into numerical labels.
-- Prepares the dataset for machine learning algorithms.
-- Maintains consistency across categorical features.
+- Creates an instance of the Logistic Regression classifier.
+- Prepares the model for training.
 
 ---
 
-## How Label Encoding Works
+## Train the Model
 
-Example:
+```python
+model.fit(X_train, y_train)
+```
 
-| Original Value | Encoded Value |
-|---------------|--------------:|
-| Male | 1 |
-| Female | 0 |
-
-| Income Type | Encoded Value |
-|-------------|--------------:|
-| Working | 3 |
-| Commercial Associate | 0 |
-| Pensioner | 2 |
-| State Servant | 1 |
-
-> **Note:** The assigned numbers are only identifiers. They do **not** indicate ranking or importance.
+**Purpose:**
+- Trains the model using the training dataset.
+- Learns the relationship between input features and the target variable.
 
 ---
 
-## Benefits of Label Encoding
+## Make Predictions
 
-- Converts categorical data into numerical format.
-- Makes the dataset compatible with machine learning algorithms.
-- Simplifies preprocessing.
-- Preserves unique category information.
-- Works effectively with tree-based models such as Decision Tree, Random Forest, and XGBoost.
+```python
+y_pred = model.predict(X_test)
+```
+
+**Purpose:**
+- Predicts the approval status for unseen test data.
+- Generates the output labels (**Approved** or **Not Approved**).
+
+---
+
+## Evaluate the Model
+
+### Confusion Matrix
+
+```python
+cm = confusion_matrix(y_test, y_pred)
+print(cm)
+```
+
+### Classification Report
+
+```python
+report = classification_report(y_test, y_pred)
+print(report)
+```
+
+**Evaluation Metrics:**
+
+- **Precision:** Measures the accuracy of positive predictions.
+- **Recall:** Measures how many actual positive cases are correctly identified.
+- **F1-Score:** Harmonic mean of precision and recall.
+- **Support:** Number of actual samples in each class.
+
+---
+
+## Benefits of Logistic Regression
+
+- Simple and easy to implement.
+- Fast model training and prediction.
+- Well-suited for binary classification problems.
+- Produces interpretable results.
+- Requires minimal computational resources.
+- Provides a strong baseline for comparing other classification models.
 
 ---
 
 ## Summary
 
-Label Encoding is an important preprocessing technique used to convert categorical features into numerical values. Using Scikit-learn's `LabelEncoder` and the `fit_transform()` method ensures that the dataset is properly formatted for machine learning, enabling efficient training and accurate prediction in the Credit Card Approval Prediction project.
+The **Logistic Regression** model is trained using the prepared dataset and evaluated on unseen test data. Predictions are assessed using a **Confusion Matrix** and **Classification Report**, which provide important performance metrics such as **Precision**, **Recall**, **F1-Score**, and **Support**. Its simplicity, efficiency, and effectiveness make Logistic Regression an excellent choice for binary classification tasks such as Credit Card Approval Prediction.
