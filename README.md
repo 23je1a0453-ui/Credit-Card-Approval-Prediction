@@ -145,4 +145,5 @@ def predict():
 
 ## Summary
 
-The Flask web application provides an intuitive interface for predicting credit card approval status. The frontend consists of **home.html**, **index.html**, and **result.html**, while the backend (`app.py`) handles routing, model loading, input processing, and prediction generation. By integrating Flask with the trained machine learning model, the application delivers fast, reliable, and real-time approval predictions through a web-based interface.
+The Flask web application provides an intuitive interface for predicting credit card approval status. The frontend consists of **home.html**, **index.html**, and 
+**result.html**, while the backend (`app.py`) handles routing, model loading, input processing, and prediction generation. By integrating Flask with the trained machine learning model, the application delivers fast, reliable, and real-time approval predictions through a web-based interface.
