@@ -1,82 +1,132 @@
-# Handling Missing Values
+# Data Cleaning and Feature Transformation
 
 ## Overview
 
-Handling missing values is an essential preprocessing step in the **Credit Card Approval Prediction** project. Missing data can negatively affect the performance of machine learning models and may lead to inaccurate predictions or errors during model training. Therefore, it is important to identify and handle missing values before proceeding with data preprocessing and model development.
+Data Cleaning and Feature Transformation are essential preprocessing steps in the **Credit Card Approval Prediction** project. These processes ensure that the dataset is clean, consistent, and suitable for machine learning algorithms. Raw datasets often contain unnecessary columns, missing values, inconsistent information, negative values, and categorical features that must be transformed into numerical representations.
 
-The Pandas functions `isnull().sum()` and `isnull().mean()` are used to detect and measure missing values in the dataset.
+The `data_cleaning()` function is used to perform these preprocessing tasks and prepare the dataset for model training.
 
 ---
 
-## Check for Missing Values
+## Data Cleaning
 
-Count the total number of missing values in each column.
+The following operations are performed during data cleaning:
+
+- Remove unnecessary columns that do not contribute to prediction.
+- Eliminate duplicate records.
+- Handle missing values.
+- Convert negative values into positive values where appropriate.
+- Standardize the dataset for further analysis.
+
+---
+
+## Feature Engineering
+
+### Create Family Size Feature
+
+A new feature is created by combining the number of family members and children to better represent the applicant's family dependency.
 
 ```python
-data.isnull().sum()
+data["Family_Size"] = data["CNT_FAM_MEMBERS"] + data["CNT_CHILDREN"]
 ```
 
 **Purpose:**
-- Identifies missing values in every column.
-- Displays the total number of null values.
-- Helps determine whether preprocessing is required.
+- Represents the applicant's overall family responsibility.
+- Improves feature representation for model training.
 
 ---
 
-## Calculate Missing Value Percentage
+### Convert Negative Values
 
-Calculate the proportion of missing values in each column.
+The `DAYS_BIRTH` and `DAYS_EMPLOYED` columns contain negative values. These values are converted into positive numbers using the `abs()` function.
 
 ```python
-data.isnull().mean()
+data["DAYS_BIRTH"] = data["DAYS_BIRTH"].abs()
+data["DAYS_EMPLOYED"] = data["DAYS_EMPLOYED"].abs()
 ```
 
 **Purpose:**
-- Calculates the percentage of missing values.
-- Helps identify columns with a high proportion of null values.
-- Supports decisions on whether to remove or retain specific features.
+- Improves readability.
+- Makes numerical analysis easier.
+- Maintains consistent feature values.
 
 ---
 
-## Remove Unnecessary Column
+### Remove Unnecessary Columns
 
-If the **Occupation_Type** column contains many missing values and is not required for model training, it can be removed.
+Columns that are not useful for prediction are removed.
 
 ```python
-data = data.drop(columns=["OCCUPATION_TYPE"])
+data.drop(columns=["OCCUPATION_TYPE"], inplace=True)
 ```
 
 **Purpose:**
-- Removes a feature with excessive missing values.
-- Simplifies the dataset.
-- Reduces unnecessary complexity during model training.
+- Reduces dataset complexity.
+- Improves model efficiency.
+- Removes irrelevant information.
 
 ---
 
-## Verify the Dataset
+## Feature Transformation
 
-Check again to ensure that no missing values remain.
+Categorical variables are converted into numerical values using mapping or encoding techniques.
+
+Example:
 
 ```python
-data.isnull().sum()
+data["CODE_GENDER"] = data["CODE_GENDER"].map({
+    "M": 1,
+    "F": 0
+})
 ```
 
-**Purpose:**
-- Confirms that the dataset is free from missing values.
-- Ensures the data is ready for preprocessing and model training.
+Other categorical features transformed include:
+
+- Housing Type
+- Income Type
+- Education Type
+- Family Status
+- Occupation Type (if retained)
 
 ---
 
-## Benefits of Handling Missing Values
+## Credit Record Processing
 
-- Improves data quality and consistency.
-- Prevents errors during model training.
+The credit record dataset is grouped by the applicant's **ID** to combine multiple monthly records into a single record.
+
+Example:
+
+```python
+credit.groupby("ID")
+```
+
+Additional features are created from the `MONTHS_BALANCE` column, including:
+
+- **Open Month**
+- **End Month**
+- **Credit History Window**
+
+The `STATUS` column is analyzed to determine:
+
+- Timely payments
+- Overdue payments
+- No loan records
+
+These features improve the prediction capability of the machine learning model.
+
+---
+
+## Benefits
+
+- Cleans inconsistent data.
+- Removes unnecessary information.
+- Creates meaningful features.
+- Converts categorical values into numerical format.
+- Improves machine learning model performance.
 - Enhances prediction accuracy.
-- Produces reliable machine learning models.
-- Ensures clean and complete data for analysis.
 
 ---
 
 ## Summary
 
-Handling missing values is a critical data preprocessing step in the Credit Card Approval Prediction project. By identifying missing values using `isnull().sum()` and `isnull().mean()`, removing unnecessary columns with excessive null values, and verifying the cleaned dataset, the data becomes complete and ready for feature engineering, model training, and evaluation.
+Data Cleaning and Feature Transformation prepare the dataset for machine learning by removing redundant information, handling inconsistencies, engineering new features, and converting categorical variables into numerical values. These preprocessing steps improve data quality and help build a more accurate and reliable Credit Card Approval Prediction model.
