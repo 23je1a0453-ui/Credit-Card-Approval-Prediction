@@ -1,77 +1,68 @@
-# Dataset Download and Understanding
+# Importing Required Libraries
 
 ## Overview
 
-The dataset used for the **Credit Card Approval Prediction** project can be collected from open-source repositories such as **Kaggle**, **data.gov**, or the **UCI Machine Learning Repository**. For this project, the dataset is sourced from **Kaggle**.
+Importing the required Python libraries is the first step in developing the **Credit Card Approval Prediction** project. These libraries provide built-in functions for data loading, preprocessing, visualization, machine learning model development, and performance evaluation. Using these libraries ensures an efficient and organized workflow throughout the project.
 
 ---
 
-## Dataset Source
-
-**Dataset Name:** Credit Card Fraud Detection
-
-**Dataset Link:** https://www.kaggle.com/datasets/mlg-ulb/creditcardfraud
-
----
-
-## Dataset Description
-
-The dataset contains information related to credit card transactions and is used to develop a machine learning model for predicting fraudulent transactions. It includes both legitimate and fraudulent transaction records, making it suitable for binary classification tasks.
-
-The dataset consists of multiple features representing transaction details, along with a target variable indicating whether a transaction is fraudulent.
-
----
-
-## Steps
-
-### Step 1: Download the Dataset
-
-Download the dataset from the Kaggle link provided above and extract the files into the project's `dataset/` directory.
-
-### Step 2: Load the Dataset
-
-Load the CSV file into a Pandas DataFrame for further analysis.
+## Import Required Libraries
 
 ```python
+import numpy as np
 import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
 
-data = pd.read_csv("dataset/creditcard.csv")
-```
-
-### Step 3: Explore the Dataset
-
-Inspect the dataset to understand its structure, features, and target variable.
-
-```python
-data.head()
-```
-
-```python
-data.info()
-```
-
-```python
-data.describe()
+from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import LabelEncoder, StandardScaler
+from sklearn.linear_model import LogisticRegression
+from sklearn.tree import DecisionTreeClassifier
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.metrics import accuracy_score, classification_report, confusion_matrix
 ```
 
 ---
 
-## Dataset Features
+## Library Description
 
-The dataset contains transaction-related features such as:
+### NumPy
+Provides support for numerical computing, multidimensional arrays, and mathematical operations.
 
-- Time
-- V1 to V28 (PCA-transformed features)
-- Amount
-- Class (Target Variable)
+### Pandas
+Used to load, clean, preprocess, and analyze datasets using DataFrames.
 
-Where:
+### Matplotlib
+Creates charts, graphs, and visualizations for data analysis.
 
-- **Class = 0** → Legitimate Transaction
-- **Class = 1** → Fraudulent Transaction
+### Seaborn
+Provides high-level statistical visualizations such as heatmaps, count plots, and pair plots.
+
+### Scikit-learn
+Offers machine learning algorithms and tools for:
+
+- Data preprocessing
+- Feature scaling
+- Label encoding
+- Train-test splitting
+- Model training
+- Model evaluation
+
+---
+
+## Purpose
+
+The imported libraries are used to:
+
+- Load and analyze the dataset.
+- Clean and preprocess the data.
+- Visualize feature distributions and relationships.
+- Train multiple machine learning models.
+- Evaluate model performance using classification metrics.
+- Compare models and select the best-performing one for deployment.
 
 ---
 
 ## Summary
 
-The dataset serves as the foundation for building the Credit Card Approval Prediction model. It is loaded into a Pandas DataFrame, explored to understand its structure, and prepared for preprocessing, feature engineering, model training, and evaluation.
+Importing the required libraries establishes the foundation for the Credit Card Approval Prediction project. These libraries support every stage of the machine learning pipeline, from data preprocessing and visualization to model training, evaluation, and deployment.
