@@ -1,80 +1,82 @@
-## Label Conversion and Dataset Merging
+# Label Encoding
 
-### Overview
+## Overview
 
-The **STATUS** column in the credit records dataset initially contains multiple payment categories, including **paid on time, overdue payments, bad debt, and no loan records**. Since the objective of this project is to predict whether a credit card application should be **approved** or **not approved**, these multiple categories are converted into **binary class labels**.
+Machine learning algorithms require numerical input data for training and prediction. Since the dataset contains categorical features such as gender, education level, income type, housing type, and family status, these values must be converted into numerical form.
 
-This binary classification simplifies the prediction process, reduces model complexity, and improves the overall performance of the machine learning model.
+In this project, the **LabelEncoder** class from the **Scikit-learn** preprocessing module is used to transform categorical variables into integer labels. The `fit_transform()` method identifies each unique category and assigns it a unique numerical value, making the dataset suitable for machine learning models.
 
 ---
 
-## Convert STATUS to Binary Labels
+## Import LabelEncoder
 
-Applicants with a good repayment history are classified as **Approved (1)**, while applicants with overdue payments, bad debt, or poor credit history are classified as **Not Approved (0)**.
+```python
+from sklearn.preprocessing import LabelEncoder
+```
+
+---
+
+## Create a LabelEncoder Object
+
+```python
+label_encoder = LabelEncoder()
+```
+
+**Purpose:**
+- Creates an instance of the `LabelEncoder` class.
+- Prepares the encoder to transform categorical features.
+
+---
+
+## Apply Label Encoding
+
+Convert categorical columns into numerical values.
+
+```python
+data["CODE_GENDER"] = label_encoder.fit_transform(data["CODE_GENDER"])
+data["NAME_INCOME_TYPE"] = label_encoder.fit_transform(data["NAME_INCOME_TYPE"])
+data["NAME_EDUCATION_TYPE"] = label_encoder.fit_transform(data["NAME_EDUCATION_TYPE"])
+data["NAME_FAMILY_STATUS"] = label_encoder.fit_transform(data["NAME_FAMILY_STATUS"])
+data["NAME_HOUSING_TYPE"] = label_encoder.fit_transform(data["NAME_HOUSING_TYPE"])
+```
+
+**Purpose:**
+- Converts text categories into numerical labels.
+- Prepares the dataset for machine learning algorithms.
+- Maintains consistency across categorical features.
+
+---
+
+## How Label Encoding Works
 
 Example:
 
-```python
-credit["STATUS"] = credit["STATUS"].replace({
-    "C": 1,   # Paid on time
-    "X": 1,   # No loan record
-    "0": 1,   # Current payment
-    "1": 0,   # 30 days overdue
-    "2": 0,   # 60 days overdue
-    "3": 0,   # 90 days overdue
-    "4": 0,   # 120 days overdue
-    "5": 0    # Bad debt / More than 120 days overdue
-})
-```
+| Original Value | Encoded Value |
+|---------------|--------------:|
+| Male | 1 |
+| Female | 0 |
 
-**Purpose:**
-- Converts multiple payment categories into binary labels.
-- Simplifies the classification problem.
-- Improves model training and prediction accuracy.
+| Income Type | Encoded Value |
+|-------------|--------------:|
+| Working | 3 |
+| Commercial Associate | 0 |
+| Pensioner | 2 |
+| State Servant | 1 |
+
+> **Note:** The assigned numbers are only identifiers. They do **not** indicate ranking or importance.
 
 ---
 
-## Merge Applicant and Credit Datasets
+## Benefits of Label Encoding
 
-After cleaning and transforming both datasets, they are merged using the common **Applicant ID (ID)** column.
-
-```python
-final_data = pd.merge(app, credit, on="ID", how="inner")
-```
-
-**Purpose:**
-- Combines applicant demographic information with credit history.
-- Creates a single dataset for machine learning.
-- Ensures all required features are available for prediction.
-
----
-
-## Verify the Merged Dataset
-
-```python
-final_data.head()
-```
-
-```python
-final_data.shape
-```
-
-**Purpose:**
-- Displays the first few records of the merged dataset.
-- Confirms the number of rows and columns after merging.
-
----
-
-## Benefits
-
-- Converts complex payment categories into a binary classification problem.
-- Simplifies machine learning model development.
-- Combines applicant and credit history information into one dataset.
-- Improves data consistency and prediction accuracy.
-- Produces a clean and structured dataset ready for feature selection, model training, and evaluation.
+- Converts categorical data into numerical format.
+- Makes the dataset compatible with machine learning algorithms.
+- Simplifies preprocessing.
+- Preserves unique category information.
+- Works effectively with tree-based models such as Decision Tree, Random Forest, and XGBoost.
 
 ---
 
 ## Summary
 
-The **STATUS** column is transformed from multiple payment categories into binary approval labels, making the prediction task more efficient. The cleaned applicant dataset and credit records dataset are then merged using the **ID** column to create a unified dataset that serves as the foundation for training and evaluating the Credit Card Approval Prediction model.
+Label Encoding is an important preprocessing technique used to convert categorical features into numerical values. Using Scikit-learn's `LabelEncoder` and the `fit_transform()` method ensures that the dataset is properly formatted for machine learning, enabling efficient training and accurate prediction in the Credit Card Approval Prediction project.
