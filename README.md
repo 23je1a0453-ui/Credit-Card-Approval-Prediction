@@ -1,132 +1,80 @@
-# Data Cleaning and Feature Transformation
+## Label Conversion and Dataset Merging
 
-## Overview
+### Overview
 
-Data Cleaning and Feature Transformation are essential preprocessing steps in the **Credit Card Approval Prediction** project. These processes ensure that the dataset is clean, consistent, and suitable for machine learning algorithms. Raw datasets often contain unnecessary columns, missing values, inconsistent information, negative values, and categorical features that must be transformed into numerical representations.
+The **STATUS** column in the credit records dataset initially contains multiple payment categories, including **paid on time, overdue payments, bad debt, and no loan records**. Since the objective of this project is to predict whether a credit card application should be **approved** or **not approved**, these multiple categories are converted into **binary class labels**.
 
-The `data_cleaning()` function is used to perform these preprocessing tasks and prepare the dataset for model training.
-
----
-
-## Data Cleaning
-
-The following operations are performed during data cleaning:
-
-- Remove unnecessary columns that do not contribute to prediction.
-- Eliminate duplicate records.
-- Handle missing values.
-- Convert negative values into positive values where appropriate.
-- Standardize the dataset for further analysis.
+This binary classification simplifies the prediction process, reduces model complexity, and improves the overall performance of the machine learning model.
 
 ---
 
-## Feature Engineering
+## Convert STATUS to Binary Labels
 
-### Create Family Size Feature
-
-A new feature is created by combining the number of family members and children to better represent the applicant's family dependency.
-
-```python
-data["Family_Size"] = data["CNT_FAM_MEMBERS"] + data["CNT_CHILDREN"]
-```
-
-**Purpose:**
-- Represents the applicant's overall family responsibility.
-- Improves feature representation for model training.
-
----
-
-### Convert Negative Values
-
-The `DAYS_BIRTH` and `DAYS_EMPLOYED` columns contain negative values. These values are converted into positive numbers using the `abs()` function.
-
-```python
-data["DAYS_BIRTH"] = data["DAYS_BIRTH"].abs()
-data["DAYS_EMPLOYED"] = data["DAYS_EMPLOYED"].abs()
-```
-
-**Purpose:**
-- Improves readability.
-- Makes numerical analysis easier.
-- Maintains consistent feature values.
-
----
-
-### Remove Unnecessary Columns
-
-Columns that are not useful for prediction are removed.
-
-```python
-data.drop(columns=["OCCUPATION_TYPE"], inplace=True)
-```
-
-**Purpose:**
-- Reduces dataset complexity.
-- Improves model efficiency.
-- Removes irrelevant information.
-
----
-
-## Feature Transformation
-
-Categorical variables are converted into numerical values using mapping or encoding techniques.
+Applicants with a good repayment history are classified as **Approved (1)**, while applicants with overdue payments, bad debt, or poor credit history are classified as **Not Approved (0)**.
 
 Example:
 
 ```python
-data["CODE_GENDER"] = data["CODE_GENDER"].map({
-    "M": 1,
-    "F": 0
+credit["STATUS"] = credit["STATUS"].replace({
+    "C": 1,   # Paid on time
+    "X": 1,   # No loan record
+    "0": 1,   # Current payment
+    "1": 0,   # 30 days overdue
+    "2": 0,   # 60 days overdue
+    "3": 0,   # 90 days overdue
+    "4": 0,   # 120 days overdue
+    "5": 0    # Bad debt / More than 120 days overdue
 })
 ```
 
-Other categorical features transformed include:
-
-- Housing Type
-- Income Type
-- Education Type
-- Family Status
-- Occupation Type (if retained)
+**Purpose:**
+- Converts multiple payment categories into binary labels.
+- Simplifies the classification problem.
+- Improves model training and prediction accuracy.
 
 ---
 
-## Credit Record Processing
+## Merge Applicant and Credit Datasets
 
-The credit record dataset is grouped by the applicant's **ID** to combine multiple monthly records into a single record.
-
-Example:
+After cleaning and transforming both datasets, they are merged using the common **Applicant ID (ID)** column.
 
 ```python
-credit.groupby("ID")
+final_data = pd.merge(app, credit, on="ID", how="inner")
 ```
 
-Additional features are created from the `MONTHS_BALANCE` column, including:
+**Purpose:**
+- Combines applicant demographic information with credit history.
+- Creates a single dataset for machine learning.
+- Ensures all required features are available for prediction.
 
-- **Open Month**
-- **End Month**
-- **Credit History Window**
+---
 
-The `STATUS` column is analyzed to determine:
+## Verify the Merged Dataset
 
-- Timely payments
-- Overdue payments
-- No loan records
+```python
+final_data.head()
+```
 
-These features improve the prediction capability of the machine learning model.
+```python
+final_data.shape
+```
+
+**Purpose:**
+- Displays the first few records of the merged dataset.
+- Confirms the number of rows and columns after merging.
 
 ---
 
 ## Benefits
 
-- Cleans inconsistent data.
-- Removes unnecessary information.
-- Creates meaningful features.
-- Converts categorical values into numerical format.
-- Improves machine learning model performance.
-- Enhances prediction accuracy.
+- Converts complex payment categories into a binary classification problem.
+- Simplifies machine learning model development.
+- Combines applicant and credit history information into one dataset.
+- Improves data consistency and prediction accuracy.
+- Produces a clean and structured dataset ready for feature selection, model training, and evaluation.
 
 ---
 
 ## Summary
 
-Data Cleaning and Feature Transformation prepare the dataset for machine learning by removing redundant information, handling inconsistencies, engineering new features, and converting categorical variables into numerical values. These preprocessing steps improve data quality and help build a more accurate and reliable Credit Card Approval Prediction model.
+The **STATUS** column is transformed from multiple payment categories into binary approval labels, making the prediction task more efficient. The cleaned applicant dataset and credit records dataset are then merged using the **ID** column to create a unified dataset that serves as the foundation for training and evaluating the Credit Card Approval Prediction model.
