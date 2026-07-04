@@ -1,82 +1,82 @@
-# Removing Duplicate Records
+# Handling Missing Values
 
 ## Overview
 
-Removing duplicate records is an essential data preprocessing step in the **Credit Card Approval Prediction** project. Duplicate entries may occur due to repeated data collection, data merging, or system errors. These duplicate records can negatively impact the accuracy and reliability of the machine learning model.
+Handling missing values is an essential preprocessing step in the **Credit Card Approval Prediction** project. Missing data can negatively affect the performance of machine learning models and may lead to inaccurate predictions or errors during model training. Therefore, it is important to identify and handle missing values before proceeding with data preprocessing and model development.
 
-Each applicant should have a unique **Applicant ID**. Therefore, duplicate records are identified and removed to ensure data consistency and improve model performance.
+The Pandas functions `isnull().sum()` and `isnull().mean()` are used to detect and measure missing values in the dataset.
 
 ---
 
-## Check for Duplicate Records
+## Check for Missing Values
 
-Before removing duplicates, check how many duplicate rows exist in the dataset.
+Count the total number of missing values in each column.
 
 ```python
-data.duplicated().sum()
+data.isnull().sum()
 ```
 
 **Purpose:**
-- Counts the total number of duplicate records.
-- Helps determine whether data cleaning is required.
+- Identifies missing values in every column.
+- Displays the total number of null values.
+- Helps determine whether preprocessing is required.
 
 ---
 
-## Remove Duplicate Records
+## Calculate Missing Value Percentage
 
-Remove all duplicate rows from the dataset.
+Calculate the proportion of missing values in each column.
 
 ```python
-data = data.drop_duplicates()
+data.isnull().mean()
 ```
 
 **Purpose:**
-- Removes duplicate records.
-- Keeps only unique rows in the dataset.
-- Improves data quality.
+- Calculates the percentage of missing values.
+- Helps identify columns with a high proportion of null values.
+- Supports decisions on whether to remove or retain specific features.
 
 ---
 
-## Remove Duplicates Based on Applicant ID
+## Remove Unnecessary Column
 
-If the dataset contains an **Applicant_ID** column, remove duplicates while keeping the first occurrence.
+If the **Occupation_Type** column contains many missing values and is not required for model training, it can be removed.
 
 ```python
-data = data.drop_duplicates(subset="Applicant_ID", keep="first")
+data = data.drop(columns=["OCCUPATION_TYPE"])
 ```
 
 **Purpose:**
-- Removes duplicate applicant records.
-- Retains only the first occurrence of each Applicant ID.
-- Ensures every applicant appears only once in the dataset.
+- Removes a feature with excessive missing values.
+- Simplifies the dataset.
+- Reduces unnecessary complexity during model training.
 
 ---
 
-## Verify the Updated Dataset
+## Verify the Dataset
 
-Check the dataset shape after removing duplicates.
+Check again to ensure that no missing values remain.
 
 ```python
-data.shape
+data.isnull().sum()
 ```
 
 **Purpose:**
-- Displays the number of rows and columns after cleaning.
-- Confirms that duplicate records have been removed successfully.
+- Confirms that the dataset is free from missing values.
+- Ensures the data is ready for preprocessing and model training.
 
 ---
 
-## Benefits of Removing Duplicate Records
+## Benefits of Handling Missing Values
 
 - Improves data quality and consistency.
-- Prevents bias during model training.
-- Ensures each applicant has a unique record.
-- Reduces redundant data.
-- Enhances machine learning model accuracy.
-- Produces more reliable prediction results.
+- Prevents errors during model training.
+- Enhances prediction accuracy.
+- Produces reliable machine learning models.
+- Ensures clean and complete data for analysis.
 
 ---
 
 ## Summary
 
-Removing duplicate records is a crucial preprocessing step in the Credit Card Approval Prediction project. Using the `drop_duplicates()` function ensures that each applicant is represented only once in the dataset, resulting in cleaner, more reliable data for preprocessing, feature engineering, model training, and evaluation.
+Handling missing values is a critical data preprocessing step in the Credit Card Approval Prediction project. By identifying missing values using `isnull().sum()` and `isnull().mean()`, removing unnecessary columns with excessive null values, and verifying the cleaned dataset, the data becomes complete and ready for feature engineering, model training, and evaluation.
