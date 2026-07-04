@@ -1,92 +1,85 @@
-# Pre-requisites
+# Project Flow
 
 ## Overview
 
-The Loan Approval Prediction System is developed using Python and several open-source libraries for data preprocessing, machine learning, visualization, and web application development. Before running the project, install the following software and libraries.
+The **Credit Card Approval Prediction** project follows a structured machine learning workflow to predict whether a credit card application should be **approved** or **rejected**. The project includes environment setup, data collection, exploratory data analysis, preprocessing, feature engineering, model building, model evaluation, and deployment through a web application.
 
 ---
 
-## Software Requirements
+# Epic 1: Data Collection
 
-### Anaconda Navigator
-A graphical platform for managing Python environments, packages, and data science applications.
-
-**Download:** https://www.anaconda.com/download
+### Story 1
+Download the **Credit Card Approval** dataset from a reliable source (such as Kaggle or the UCI Machine Learning Repository) and prepare it for data analysis and machine learning model development.
 
 ---
 
-### Visual Studio Code (Recommended)
-A lightweight and powerful source code editor used for Python development.
+# Epic 2: Data Visualization and Analysis
 
-**Download:** https://code.visualstudio.com/
+### Story 1
+Import the required Python libraries for data manipulation, visualization, and machine learning.
 
----
+### Story 2
+Load and explore the dataset to understand its structure, features, and target variable.
 
-## Python Libraries
+### Story 3
+Perform **univariate analysis** to examine the distribution of individual features.
 
-### NumPy
-Provides support for numerical computing, multidimensional arrays, and mathematical operations.
+### Story 4
+Perform **multivariate analysis** to identify relationships between applicant attributes and approval status.
 
-**Documentation:** https://numpy.org/doc/stable/
-
----
-
-### Pandas
-Used for data loading, cleaning, preprocessing, and analysis using DataFrames.
-
-**Documentation:** https://pandas.pydata.org/docs/
+### Story 5
+Generate descriptive statistics to summarize the key characteristics of the dataset.
 
 ---
 
-### Scikit-learn
-Provides machine learning algorithms, preprocessing techniques, model training, and evaluation tools.
+# Epic 3: Data Preprocessing
 
-**Documentation:** https://scikit-learn.org/stable/
+### Story 1
+Identify and remove duplicate records to improve data quality.
 
----
+### Story 2
+Detect and handle missing values appropriately.
 
-### Matplotlib
-Used for creating charts, graphs, and other visualizations.
+### Story 3
+Clean and preprocess the dataset to ensure consistency.
 
-**Documentation:** https://matplotlib.org/stable/
+### Story 4
+Perform feature engineering by selecting and transforming important features.
 
----
-
-### Seaborn
-A statistical data visualization library built on top of Matplotlib.
-
-**Documentation:** https://seaborn.pydata.org/
+### Story 5
+Convert categorical variables into numerical values using suitable encoding techniques.
 
 ---
 
-### Flask
-A lightweight Python web framework used to build and deploy the Loan Approval Prediction web application.
+# Epic 4: Model Building
 
-**Documentation:** https://flask.palletsprojects.com/
+### Story 1
+Train a **Logistic Regression** model for credit card approval prediction.
+
+### Story 2
+Train a **Random Forest Classifier** and evaluate its performance.
+
+### Story 3
+Train a **Decision Tree Classifier** and analyze its prediction accuracy.
+
+### Story 4
+Compare the performance of all trained models using evaluation metrics such as Accuracy, Precision, Recall, F1-Score, and ROC-AUC, and select the best-performing model for deployment.
 
 ---
 
-## Install Required Libraries
+# Epic 5: Web Application Development
 
-Install all required Python packages using pip:
+### Story 1
+Design and develop HTML pages to provide a user-friendly interface.
 
-```bash
-pip install numpy
-pip install pandas
-pip install matplotlib
-pip install seaborn
-pip install scikit-learn
-pip install flask
-```
+### Story 2
+Build the Flask application and integrate the trained machine learning model.
 
-Or install them together:
-
-```bash
-pip install numpy pandas matplotlib seaborn scikit-learn flask
-```
+### Story 3
+Test and validate the application to ensure accurate credit card approval predictions and smooth user interaction.
 
 ---
 
 ## Summary
 
-These software tools and Python libraries provide the foundation for data preprocessing, machine learning model development, visualization, and deployment of the Loan Approval Prediction System.
+The Credit Card Approval Prediction project follows a systematic machine learning pipeline that includes data collection, analysis, preprocessing, model training, evaluation, and deployment. This workflow ensures accurate prediction of credit card approval decisions while providing an interactive web interface for end users.
